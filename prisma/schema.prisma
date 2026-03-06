@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -13,6 +7,133 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  admin
+  employee
+  customer
+  supplier
+}
+
+enum Order_status {
+  Pending
+  In_Progress
+  Completed
+  Delivered
+}
+
+enum Material_Categorie {
+  Wood
+  Hardware
+  Finishing
+  Accessories
+}
+
 model User {
-  id Int @id @unique
+  id       String @id @unique @default(uuid())
+  email    String
+  name     String
+  password String
+  role     Role   @default(customer)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  // Relations
+  profile Profile?
+
+  assigment Assigment?
+
+  orders Order[]
+
+  materials Material[]
+}
+
+model Profile {
+  id String @id @unique @default(uuid())
+
+  address       String?
+  contact       String?
+  rate_per_hour Int?
+
+  // Relations
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Order {
+  id             String       @id @unique @default(uuid())
+  order_number   Int          @unique @default(autoincrement())
+  order_status   Order_status @default(Pending)
+  total_cost     Int
+  address        String
+  contact        String
+  payment_status Boolean      @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  // Relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  orderItem Order_Item?
+
+  invoice Invoice?
+}
+
+model Order_Item {
+  id                  String  @id @unique @default(uuid())
+  product_type        String
+  product_wood_type   String
+  product_quantity    Int     @default(1)
+  finishing_touch     String
+  product_discription String?
+  aditional_info      String?
+
+  // Relations
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+model Assigment {
+  id         String    @id @unique @default(uuid())
+  start_date DateTime  @default(now())
+  end_date   DateTime?
+  hours      Int?
+
+  // Relations
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Invoice {
+  id             String  @id @unique @default(uuid())
+  invoice_number Int     @unique @default(autoincrement())
+  total_amount   Int
+  tax            Int
+  subtotal       Int
+  payment_status Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  // Relations
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id])
+}
+
+model Material {
+  id                  String             @id @unique @default(uuid())
+  name                String
+  unit                Int                @default(0)
+  unit_price          Int                @default(0)
+  low_stock_threshold Int                @default(5)
+  categorie           Material_Categorie
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  // Relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
