@@ -1,16 +1,27 @@
 "use client";
+import Logo from "@/components/custom/logo/Logo";
+import { Button } from "@/components/ui/button";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
-  const sendreq = async () => {
-    const res = await fetch("/api/create-user", { method: "POST" });
-    if (res.ok) {
-      console.log(res);
-    }
+  const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const logout = async () => {
+    setIsLoading(true);
+    await signOut({ redirect: false });
+    toast.success("User signout");
+    router.replace("/signin");
+    setIsLoading(false);
   };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="min-h-screen bg-zinc-50 font-sans dark:bg-black">
+      <main>
+        <Logo />
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -19,7 +30,11 @@ export default function Home() {
           height={20}
           priority
         />
-        <button onClick={() => sendreq()}>Create user </button>
+        {session?.user.name}
+        {session?.user.role}
+        <Button onClick={() => logout()} disabled={isLoading}>
+          Logout
+        </Button>
       </main>
     </div>
   );
