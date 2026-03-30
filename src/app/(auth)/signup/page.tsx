@@ -94,7 +94,7 @@ export default function Page() {
     }
   }
   return (
-    <div className="min-w-full flex flex-col justify-center items-center min-h-screen">
+    <div className="min-w-full flex flex-col justify-center items-center min-h-screen bg-white">
       <div className="flex gap-4 items-center my-10 lg:hidden">
         <Logo size={25} className="p-2" />
         <div className="flex flex-col items-center">
