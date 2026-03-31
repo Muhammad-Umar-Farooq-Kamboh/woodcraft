@@ -13,7 +13,7 @@ export default function Layout({
     <div className="flex w-full">
       <Desktopheader role={session?.user.role || undefined} />
       <Mobileheader role={session?.user.role || undefined} />
-      <div className="bg-[#F9F8F5] lg:ml-60">{children}</div>
+      <div className="bg-[#F9F8F5] lg:ml-60 w-full">{children}</div>
     </div>
   );
 }

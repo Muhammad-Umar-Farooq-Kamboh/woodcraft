@@ -159,11 +159,11 @@ export default function Navigation({
         role !== "employee" &&
         role !== "supplier" && (
           <div>
-            <nav className="flex flex-col gap-2 mx-2">
+            <nav className="flex flex-col gap-4 mx-2">
               {adminNavItems.map((e: any, n: number) => (
                 //   <div key={n}>{e.text}</div>
                 <Skeleton
-                  className="h-[20px] w-full rounded-full bg-[#E89230]"
+                  className="h-[25px] w-full rounded-sm bg-[#E89230]"
                   key={n}
                 />
               ))}

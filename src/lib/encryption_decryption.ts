@@ -5,5 +5,5 @@ export async function enreypt(password: string) {
 }
 
 export async function decrypt(password: string, hashedPassword: string) {
-  return await bcrypt.hash(password, hashedPassword);
+  return await bcrypt.compare(password, hashedPassword);
 }

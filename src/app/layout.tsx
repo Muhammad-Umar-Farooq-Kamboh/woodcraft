@@ -42,7 +42,7 @@ export default function RootLayout({
             shadow="0 0 10px #E89230,0 0 5px #E89230"
           />
           {children}
-          <Toaster />
+          <Toaster richColors />
         </body>
       </AuthProvider>
     </html>

@@ -63,7 +63,7 @@ export default function Page() {
       password: data.password,
     });
     if (result?.error) {
-      toast(result.error);
+      toast.error(result.error);
     } else {
       toast.success("User logged in");
       router.replace("/");
