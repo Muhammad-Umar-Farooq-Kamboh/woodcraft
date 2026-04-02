@@ -45,7 +45,7 @@ const formSchema = z.object({
   name: z
     .string()
     .min(2, "Name must be at least 2 characters.")
-    .max(15, "Name must be at most 15 characters."),
+    .max(20, "Name must be at most 20 characters."),
   categorie: z
     .string()
     .min(3, "Category must be at least 2 characters.")
@@ -55,9 +55,24 @@ const formSchema = z.object({
   low_stock_threshold: z.string().min(1, "Min 1").max(2, "Max 2"),
 });
 
-export default function Inventorytop() {
+export default function Inventorytop({
+  listOfMaterials,
+  setListOfMaterials,
+}: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+
+  const data = listOfMaterials.reduce((acc: any, item: any) => {
+    const key = item.categorie;
+
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+
+    acc[key].push(item);
+
+    return acc;
+  }, {});
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -77,6 +92,7 @@ export default function Inventorytop() {
     try {
       const res = await axios.post("/api/inventory/add-material", data);
       if (res.status === 200) {
+        setListOfMaterials((prev) => [...prev, res.data.data]);
         toast.success(res.data.message || "Materail added successfully");
       }
     } catch (error: any) {
@@ -284,7 +300,9 @@ export default function Inventorytop() {
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Wood
             </CardTitle>
-            <p className="font-bold text-[#291D14] text-2xl">5</p>
+            <p className="font-bold text-[#291D14] text-2xl">
+              {data?.Wood?.length || 0}
+            </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
               items
             </CardDescription>
@@ -295,7 +313,9 @@ export default function Inventorytop() {
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Hardware
             </CardTitle>
-            <p className="font-bold text-[#291D14] text-2xl">5</p>
+            <p className="font-bold text-[#291D14] text-2xl">
+              {data?.Hardware?.length || 0}
+            </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
               items
             </CardDescription>
@@ -304,9 +324,11 @@ export default function Inventorytop() {
         <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
-              Adhesives
+              Accessories
             </CardTitle>
-            <p className="font-bold text-[#291D14] text-2xl">5</p>
+            <p className="font-bold text-[#291D14] text-2xl">
+              {data?.Accessories?.length || 0}
+            </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
               items
             </CardDescription>
@@ -317,7 +339,9 @@ export default function Inventorytop() {
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Finishing
             </CardTitle>
-            <p className="font-bold text-[#291D14] text-2xl">5</p>
+            <p className="font-bold text-[#291D14] text-2xl">
+              {data?.Finishing?.length || 0}
+            </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
               items
             </CardDescription>

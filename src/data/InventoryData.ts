@@ -1,1 +1,1 @@
-export const CategoryList = ["Wood", "Hardware", "Adhesives", "Finishing"];
+export const CategoryList = ["Wood", "Hardware", "Accessories", "Finishing"];
