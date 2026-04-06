@@ -11,7 +11,10 @@ import { Box, Dot } from "lucide-react";
 import { useState } from "react";
 import EditInventory from "./EditInventory";
 
-export default function InventoryList({ listOfMaterials }: any) {
+export default function InventoryList({
+  listOfMaterials,
+  setListOfMaterials,
+}: any) {
   const [categorie, setCategorie] = useState("All");
   const filtered = listOfMaterials.filter((e) => e.categorie === categorie);
   const data = categorie === "All" ? listOfMaterials : filtered;
@@ -104,7 +107,7 @@ export default function InventoryList({ listOfMaterials }: any) {
                     </span>
                   </TableCell>
                   <TableCell>
-                    <EditInventory data={e} />{" "}
+                    <EditInventory data={e} setdata={setListOfMaterials} />{" "}
                   </TableCell>
                 </TableRow>
               ))}

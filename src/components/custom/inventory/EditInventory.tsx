@@ -54,7 +54,7 @@ const formSchema = z.object({
     .max(100, "Please enter less than 100"),
 });
 
-export default function EditInventory({ data }: any) {
+export default function EditInventory({ data, setdata }: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -79,6 +79,9 @@ export default function EditInventory({ data }: any) {
         updatedData,
       );
       if (res.status === 200) {
+        setdata((prev: any) =>
+          prev.map((e: any) => (e.id === res.data.data.id ? res.data.data : e)),
+        );
         toast.success(res.data.message || "Materail added successfully");
       }
     } catch (error: any) {

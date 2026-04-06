@@ -40,7 +40,10 @@ export default function Page() {
       {isPageLoading ? (
         <InventoryListSkeleton />
       ) : (
-        <InventoryList listOfMaterials={listOfMaterials} />
+        <InventoryList
+          listOfMaterials={listOfMaterials}
+          setListOfMaterials={setListOfMaterials}
+        />
       )}
     </div>
   );
