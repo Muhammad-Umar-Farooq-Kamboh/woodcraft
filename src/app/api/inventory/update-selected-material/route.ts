@@ -43,8 +43,12 @@ export async function POST(req: Request) {
       throw new Error("Item not found");
     }
 
-    const updatedUnitPrice =
-      (selectedMaterial.unit_price + Number(unit_price)) / 2;
+    const updatedUnitPrice = Math.ceil(
+      (selectedMaterial.unit * selectedMaterial.unit_price +
+        Number(unit_price) * Number(numberOfProduct)) /
+        (selectedMaterial.unit + Number(numberOfProduct)),
+    );
+    // (selectedMaterial.unit_price + Number(unit_price)) / 2;
     const updatedUnits = selectedMaterial.unit + Number(numberOfProduct);
 
     const updateMaterial = await prisma.material.update({

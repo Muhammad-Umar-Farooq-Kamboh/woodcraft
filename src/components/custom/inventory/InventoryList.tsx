@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Box, Dot } from "lucide-react";
+import { Box, Dot, TriangleAlert } from "lucide-react";
 import { useState } from "react";
 import EditInventory from "./EditInventory";
 
@@ -92,7 +92,9 @@ export default function InventoryList({
                     </span>
                   </TableCell>
                   <TableCell>
-                    <span className="text-2xl font-semibold text-[#6F4120]">
+                    <span
+                      className={`text-2xl font-semibold ${e.unit < e.low_stock_threshold ? "text-red-500" : "text-[#6F4120]"}`}
+                    >
                       {e.unit}
                     </span>
                     <span className="text-gray-600">
@@ -100,12 +102,21 @@ export default function InventoryList({
                     </span>
                   </TableCell>
                   <TableCell>{e.unit_price}/-</TableCell>
-                  <TableCell className="flex items-center px-0">
-                    <Dot color="#22A050" />
-                    <span className="text-[#22A050] font-semibold">
-                      In Stock
-                    </span>
-                  </TableCell>
+                  {e.unit < e.low_stock_threshold ? (
+                    <TableCell className="flex items-center gap-2 px-0">
+                      <TriangleAlert color="#F29E0D" size={15} />
+                      <span className="text-[#F29E0D] font-semibold">
+                        Low Stock
+                      </span>
+                    </TableCell>
+                  ) : (
+                    <TableCell className="flex items-center px-0">
+                      <Dot color="#22A050" />
+                      <span className="text-[#22A050] font-semibold">
+                        In Stock
+                      </span>
+                    </TableCell>
+                  )}
                   <TableCell>
                     <EditInventory data={e} setdata={setListOfMaterials} />{" "}
                   </TableCell>
