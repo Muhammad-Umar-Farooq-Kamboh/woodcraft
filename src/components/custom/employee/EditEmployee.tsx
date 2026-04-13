@@ -246,7 +246,7 @@ export default function EditEmployee({ data, setListOfEmployee }: any) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       className="text-[#3D2514]"
-                      htmlFor="form-rhf-demo-password"
+                      htmlFor="form-rhf-demo-rate"
                     >
                       Rate per hour
                     </FieldLabel>
@@ -254,7 +254,7 @@ export default function EditEmployee({ data, setListOfEmployee }: any) {
                       <Input
                         {...field}
                         type="number"
-                        id="form-rhf-demo-password"
+                        id="form-rhf-demo-rate"
                         aria-invalid={fieldState.invalid}
                         placeholder="Enter rate per hour"
                         autoComplete="off"
@@ -274,14 +274,14 @@ export default function EditEmployee({ data, setListOfEmployee }: any) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       className="text-[#3D2514]"
-                      htmlFor="form-rhf-demo-password"
+                      htmlFor="form-rhf-demo-contact-number"
                     >
                       Contact number
                     </FieldLabel>
                     <div className="relative">
                       <Input
                         {...field}
-                        id="form-rhf-demo-password"
+                        id="form-rhf-demo-contact-number"
                         aria-invalid={fieldState.invalid}
                         placeholder="Enter number of employee"
                         autoComplete="off"
@@ -302,14 +302,14 @@ export default function EditEmployee({ data, setListOfEmployee }: any) {
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel
                         className="text-[#3D2514]"
-                        htmlFor="form-rhf-demo-password"
+                        htmlFor="form-rhf-demo-address"
                       >
                         Address
                       </FieldLabel>
                       <div className="relative">
                         <Textarea
                           {...field}
-                          id="form-rhf-demo-password"
+                          id="form-rhf-demo-address"
                           aria-invalid={fieldState.invalid}
                           placeholder="Enter address of employee"
                           autoComplete="off"
