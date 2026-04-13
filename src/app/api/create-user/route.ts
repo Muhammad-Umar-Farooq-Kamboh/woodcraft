@@ -18,6 +18,7 @@ export async function POST(req: Request) {
     // Password encryption not exist till yet
     const createduser = await prisma.user.create({
       data: { email, name, password: encryptedPassword },
+      omit: { password: true },
     });
     return Response.json(
       { status: 200, data: createduser, message: "User created successfully" },
