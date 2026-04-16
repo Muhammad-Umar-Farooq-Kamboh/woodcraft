@@ -14,8 +14,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { finishingPrefrences, projectTypes } from "@/data/InventoryData";
+import {
+  finishingPrefrences,
+  labourCostPerHour,
+  projectTypes,
+} from "@/data/InventoryData";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
@@ -40,13 +46,22 @@ const formSchema = z.object({
 });
 
 export default function CreateOrderComp({ listOfWoodCategorie }: any) {
+  const router = useRouter();
   const [woodcost, setWoodCost] = useState(0);
-  const [labourCost, setLabourCost] = useState(0);
+  const [labourHours, setLabourHours] = useState(0);
   const [noOfProducts, setNoOfProducts] = useState(1);
+  const [amountOfGlue, setAmountOfGlue] = useState(0);
+  const [amountOfSkrews, setAmountOfSkrews] = useState(0);
+  const [amountOfSandPapers, setAmountOfSandPapers] = useState(0);
   const [finishingPrefrencesCost, setFinishingPrefrencesCost] = useState(0);
+  const [quantityOfWood, setQuantityOfWood] = useState(0);
   const price_without_tax =
     noOfProducts *
-    (woodcost + (woodcost * 5) / 100 + labourCost + finishingPrefrencesCost);
+    ((woodcost + woodcost * 0.05) * quantityOfWood +
+      labourHours * labourCostPerHour +
+      finishingPrefrencesCost);
+
+  // Total no pproduct a customer inputs ( (price of single wood + percentage of profit) * how much wood consume on making single product + (labour const per hour) + finishinf cost )
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema as any),
     defaultValues: {
@@ -61,7 +76,20 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    const requestdata = {
+      ...data,
+      price_without_tax,
+      amountOfGlue: amountOfGlue * data.product_quantity,
+      amountOfSkrews: amountOfSkrews * data.product_quantity,
+      amountOfSandPapers: amountOfSandPapers * data.product_quantity,
+      quantityOfWood: quantityOfWood * data.product_quantity,
+    };
+    console.log(requestdata);
+    const res = await axios.post(
+      "/api/order/customer-create-order",
+      requestdata,
+    );
+    console.log(res);
   }
   return (
     <div className="bg-[#FDFDFC] p-4 border-1 rounded-2xl flex flex-col gap-4">
@@ -87,7 +115,13 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                       (item: any) => item.name === value,
                     );
                     if (selectedItem) {
-                      setLabourCost(selectedItem.labour);
+                      setQuantityOfWood(selectedItem.quantityOfMaterial);
+                      setLabourHours(selectedItem.timeItTakes);
+                      setAmountOfGlue(selectedItem.glue);
+                      setAmountOfSkrews(selectedItem.skrew);
+                      setAmountOfSandPapers(selectedItem.others);
+                    } else {
+                      router.refresh();
                     }
                   }}
                 >
@@ -167,7 +201,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                   }}
                   id="form-rhf-demo-quantity"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter address of employee"
+                  placeholder="Enter number of products you want to buy"
                   autoComplete="off"
                   className="focus:border-none"
                 />
@@ -198,8 +232,8 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                   </SelectTrigger>
                   <SelectContent>
                     {finishingPrefrences.map((e, n) => (
-                      <SelectItem value={e} key={n}>
-                        {e}
+                      <SelectItem value={e.name} key={n}>
+                        {e.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -227,7 +261,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                     {...field}
                     id="form-rhf-demo-disc"
                     aria-invalid={fieldState.invalid}
-                    placeholder="Enter email of employee"
+                    placeholder="Enter information about product, its design its dimentions"
                     autoComplete="off"
                     className="focus:border-none"
                   />
@@ -254,7 +288,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                   {...field}
                   id="form-rhf-demo-address"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter address of employee"
+                  placeholder="Enter your dilivery address"
                   autoComplete="off"
                   className="focus:border-none"
                 />
@@ -280,7 +314,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                   {...field}
                   id="form-rhf-demo-info"
                   aria-invalid={fieldState.invalid}
-                  placeholder="Enter address of employee"
+                  placeholder="Enter additional information if you want to add"
                   autoComplete="off"
                   className="focus:border-none"
                 />

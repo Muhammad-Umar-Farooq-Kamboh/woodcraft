@@ -82,13 +82,14 @@ model Order {
 }
 
 model Order_Item {
-  id                  String  @id @unique @default(uuid())
-  product_type        String
-  product_wood_type   String
-  product_quantity    Int     @default(1)
-  finishing_touch     String
-  product_discription String?
-  aditional_info      String?
+  id                    String  @id @unique @default(uuid())
+  product_type          String
+  product_wood_type     String
+  product_quantity      Int     @default(1)
+  finishing_touch       String
+  product_discription   String?
+  aditional_info        String?
+  hours_of_construction Int
 
   // Relations
   orderId String @unique
@@ -125,7 +126,7 @@ model Invoice {
 model Material {
   id                  String             @id @unique @default(uuid())
   name                String
-  unit                Int                @default(0)
+  unit                Float              @default(0)
   unit_price          Int                @default(0)
   low_stock_threshold Int                @default(5)
   categorie           Material_Categorie
