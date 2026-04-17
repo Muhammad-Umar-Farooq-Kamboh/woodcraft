@@ -21,9 +21,11 @@ import {
 } from "@/data/InventoryData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 const formSchema = z.object({
@@ -55,6 +57,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
   const [amountOfSandPapers, setAmountOfSandPapers] = useState(0);
   const [finishingPrefrencesCost, setFinishingPrefrencesCost] = useState(0);
   const [quantityOfWood, setQuantityOfWood] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const price_without_tax =
     noOfProducts *
     ((woodcost + woodcost * 0.05) * quantityOfWood +
@@ -76,20 +79,29 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    const requestdata = {
-      ...data,
-      price_without_tax,
-      amountOfGlue: amountOfGlue * data.product_quantity,
-      amountOfSkrews: amountOfSkrews * data.product_quantity,
-      amountOfSandPapers: amountOfSandPapers * data.product_quantity,
-      quantityOfWood: quantityOfWood * data.product_quantity,
-    };
-    console.log(requestdata);
-    const res = await axios.post(
-      "/api/order/customer-create-order",
-      requestdata,
-    );
-    console.log(res);
+    try {
+      setIsLoading(true);
+      const requestdata = {
+        ...data,
+        price_without_tax,
+        amountOfGlue: amountOfGlue * data.product_quantity,
+        amountOfSkrews: amountOfSkrews * data.product_quantity,
+        amountOfSandPapers: amountOfSandPapers * data.product_quantity,
+        quantityOfWood: quantityOfWood * data.product_quantity,
+        hours_of_construction: labourHours,
+      };
+      const res = await axios.post(
+        "/api/order/customer-create-order",
+        requestdata,
+      );
+      console.log(res.data.data);
+      toast.success(res.data.message || "Order created Successfully");
+    } catch (error: any) {
+      console.log(error?.response?.data.message || "Error occur in server");
+      toast.error(error?.response?.data.message || "Order not created");
+    } finally {
+      setIsLoading(false);
+    }
   }
   return (
     <div className="bg-[#FDFDFC] p-4 border-1 rounded-2xl flex flex-col gap-4">
@@ -361,7 +373,15 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
           onClick={() => {
             form.reset();
             setWoodCost(0);
+            setFinishingPrefrencesCost(0);
+            setNoOfProducts(1);
+            setLabourHours(0);
+            setQuantityOfWood(0);
+            setAmountOfGlue(0);
+            setAmountOfSkrews(0);
+            setAmountOfSandPapers(0);
           }}
+          disabled={isLoading}
         >
           Reset form
         </Button>
@@ -369,8 +389,10 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
           className="w-fit bg-[#3D2514] hover:bg-[#4d2d16]"
           type="submit"
           form="form-rhf-demo"
+          disabled={isLoading}
         >
           Confirm Order
+          {isLoading && <LoaderCircle className="animate-spin" />}
         </Button>
       </div>
     </div>

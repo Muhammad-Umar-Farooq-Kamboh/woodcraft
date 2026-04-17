@@ -65,7 +65,7 @@ export const projectTypes = [
 
 export const finishingPrefrences = [
   { name: "Natural/Clear", charges: 200 },
-  { name: "Stained", charges: 500 },
-  { name: "Painted", charges: 500 },
-  { name: "Polished", charges: 500 },
+  { name: "Wood Stain", charges: 500 },
+  { name: "Wood Paint", charges: 500 },
+  { name: "Wood Polish", charges: 500 },
 ];
