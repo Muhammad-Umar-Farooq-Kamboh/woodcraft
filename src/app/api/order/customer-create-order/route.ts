@@ -3,12 +3,16 @@ import getUserIdFromSession from "@/lib/verifyuser";
 
 export async function POST(req: Request) {
   try {
+    // Verify user is logged in
     const userId = await getUserIdFromSession(req);
     if (!userId) {
       throw new Error("User not found");
     }
+
+    // Get data from frountend
     const {
       address,
+      contact,
       aditional_info,
       amountOfGlue,
       amountOfSandPapers,
@@ -21,9 +25,11 @@ export async function POST(req: Request) {
       product_wood_type,
       quantityOfWood,
       hours_of_construction,
+      amountOfPaint,
     } = await req.json();
     if (
       !address ||
+      !contact ||
       !amountOfGlue ||
       !amountOfSandPapers ||
       !amountOfSkrews ||
@@ -34,10 +40,13 @@ export async function POST(req: Request) {
       !product_type ||
       !product_wood_type ||
       !quantityOfWood ||
-      !hours_of_construction
+      !hours_of_construction ||
+      !amountOfPaint
     ) {
       throw new Error("Please enter all entities");
     }
+
+    // Cheak every product is available
     const woodType = await prisma.material.findFirst({
       where: { name: product_wood_type },
     });
@@ -65,11 +74,13 @@ export async function POST(req: Request) {
     const finishingUsed = await prisma.material.findFirst({
       where: { name: finishing_touch },
     });
+
+    // Create Order
     const createOrder = await prisma.order.create({
       data: {
         total_cost: Number(price_without_tax),
         address,
-        contact: address,
+        contact,
         userId,
         orderItem: {
           create: {
@@ -87,6 +98,40 @@ export async function POST(req: Request) {
     });
     if (!createOrder) {
       throw new Error("Order not created");
+    }
+
+    // Update Materials
+    if (finishingUsed) {
+      const updatePaint = await prisma.material.update({
+        where: { id: finishingUsed.id },
+        data: {
+          unit: finishingUsed.unit - amountOfPaint,
+        },
+      });
+      if (!updatePaint) {
+        throw new Error("Order created but material not updated");
+      }
+    }
+    const updateWood = await prisma.material.update({
+      where: { id: woodType.id },
+      data: {
+        unit: woodType.unit - quantityOfWood,
+      },
+    });
+    const updateSkrews = await prisma.material.update({
+      where: { id: skrewUsed.id },
+      data: { unit: skrewUsed.unit - amountOfSkrews },
+    });
+    const updateGlue = await prisma.material.update({
+      where: { id: glueUsed.id },
+      data: { unit: glueUsed.unit - amountOfGlue },
+    });
+    const updateSandPapers = await prisma.material.update({
+      where: { id: sandPaperUsed.id },
+      data: { unit: sandPaperUsed.unit - amountOfSandPapers },
+    });
+    if (!updateWood || !updateSkrews || !updateGlue || !updateSandPapers) {
+      throw new Error("Order created but material not updated");
     }
     return Response.json(
       {

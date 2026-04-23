@@ -95,7 +95,7 @@ export default function InventoryList({
                     <span
                       className={`text-2xl font-semibold ${e.unit < e.low_stock_threshold ? "text-red-500" : "text-[#6F4120]"}`}
                     >
-                      {e.unit}
+                      {e.unit.toFixed(2)}
                     </span>
                     <span className="text-gray-600">
                       /{e.low_stock_threshold}

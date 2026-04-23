@@ -40,6 +40,10 @@ const formSchema = z.object({
     .string()
     .min(6, "Address must be at least 6 characters.")
     .max(100, "Address contain max 100 characters"),
+  contact: z
+    .string()
+    .min(11, "Number must be 11 words long")
+    .max(11, "Number must be 11 words long"),
   product_quantity: z.coerce
     .number()
     .min(1, "Min product is 1")
@@ -55,6 +59,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
   const [amountOfGlue, setAmountOfGlue] = useState(0);
   const [amountOfSkrews, setAmountOfSkrews] = useState(0);
   const [amountOfSandPapers, setAmountOfSandPapers] = useState(0);
+  const [amountOfPaint, setAmountOfPaint] = useState(0);
   const [finishingPrefrencesCost, setFinishingPrefrencesCost] = useState(0);
   const [quantityOfWood, setQuantityOfWood] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -73,12 +78,15 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
       product_discription: "",
       aditional_info: "",
       address: "",
+      contact: "",
       product_quantity: 1,
       finishing_touch: "",
     },
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
+    // console.log(data);
+
     try {
       setIsLoading(true);
       const requestdata = {
@@ -88,6 +96,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
         amountOfSkrews: amountOfSkrews * data.product_quantity,
         amountOfSandPapers: amountOfSandPapers * data.product_quantity,
         quantityOfWood: quantityOfWood * data.product_quantity,
+        amountOfPaint: amountOfPaint * data.product_quantity,
         hours_of_construction: labourHours,
       };
       const res = await axios.post(
@@ -101,6 +110,16 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
       toast.error(error?.response?.data.message || "Order not created");
     } finally {
       setIsLoading(false);
+      form.reset();
+      setWoodCost(0);
+      setFinishingPrefrencesCost(0);
+      setNoOfProducts(1);
+      setLabourHours(0);
+      setQuantityOfWood(0);
+      setAmountOfGlue(0);
+      setAmountOfSkrews(0);
+      setAmountOfSandPapers(0);
+      setAmountOfPaint(0);
     }
   }
   return (
@@ -132,6 +151,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                       setAmountOfGlue(selectedItem.glue);
                       setAmountOfSkrews(selectedItem.skrew);
                       setAmountOfSandPapers(selectedItem.others);
+                      setAmountOfPaint(selectedItem.polish);
                     } else {
                       router.refresh();
                     }
@@ -245,11 +265,37 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                   <SelectContent>
                     {finishingPrefrences.map((e, n) => (
                       <SelectItem value={e.name} key={n}>
-                        {e.name}
+                        {e.type}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="contact"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel
+                  className="text-[#3D2514]"
+                  htmlFor="form-rhf-demo-constact"
+                >
+                  Contact Number
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id="form-rhf-demo-constact"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="03X-XXXXXXXX"
+                  autoComplete="off"
+                  className="focus:border-none"
+                />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
@@ -380,6 +426,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
             setAmountOfGlue(0);
             setAmountOfSkrews(0);
             setAmountOfSandPapers(0);
+            setAmountOfPaint(0);
           }}
           disabled={isLoading}
         >
