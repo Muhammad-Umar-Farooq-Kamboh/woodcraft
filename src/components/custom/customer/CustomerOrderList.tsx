@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Package, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import {
   Card,
@@ -9,10 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import CustomerNoOrderComp from "./CustomerNoOrderComp";
 
 export default function CustomerOrderList({ data }: any) {
   const navigate = useRouter();
+  // data = [];
   return (
     <div className="w-full">
       {data.length > 0 ? (
@@ -71,7 +72,9 @@ export default function CustomerOrderList({ data }: any) {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
                         <div>
                           <span className="text-gray-500">Order ID:</span>
-                          <div className="font-medium">ORD{n + 1}</div>
+                          <div className="font-medium">
+                            ORD{order.order_number}
+                          </div>
                         </div>
                         <div>
                           <span className="text-gray-500">Order Date:</span>
@@ -94,26 +97,7 @@ export default function CustomerOrderList({ data }: any) {
           </CardContent>
         </Card>
       ) : (
-        <Card>
-          <CardContent className=" flex flex-col gap-4 items-center justify-center md:py-10">
-            <div className="p-5 bg-[#F3F4F6] w-fit rounded-full">
-              {/* <Package color="#99A1AF" /> */}
-              <Package color="#3D2514" size={35} />
-            </div>
-            <h4 className="text-2xl font-semibold text-[#3D2514]">
-              No orders yet
-            </h4>
-            <p className="text-[#4A5565] w-1/2 text-center">
-              You haven't placed any woodwork orders yet. Start by creating your
-              first custom project and we'll bring your vision to life.
-            </p>
-            <Link href="/customer/new-orders">
-              <Button className="bg-[#3D2514] hover:bg-[#4d2c13]">
-                Create New Order
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
+        <CustomerNoOrderComp />
       )}
     </div>
   );

@@ -1,3 +1,4 @@
+import { taxPercetage } from "@/data/InventoryData";
 import prisma from "@/lib/db";
 import getUserIdFromSession from "@/lib/verifyuser";
 
@@ -78,7 +79,7 @@ export async function POST(req: Request) {
     // Create Order
     const createOrder = await prisma.order.create({
       data: {
-        total_cost: Number(price_without_tax),
+        total_cost: Number(price_without_tax * 1.1),
         address,
         contact,
         userId,

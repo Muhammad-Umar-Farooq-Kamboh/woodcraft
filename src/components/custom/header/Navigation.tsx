@@ -34,7 +34,6 @@ const customerNavItems = [
     text: "Dashboard",
     slug: "/customer",
   },
-  { icon: <Handbag size={16} />, text: "My Orders", slug: "/customer/orders" },
   {
     icon: <Plus size={16} />,
     text: "New Orders",

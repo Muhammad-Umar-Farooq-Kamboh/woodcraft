@@ -86,7 +86,11 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     // console.log(data);
-
+    // alert("Your information cannot be change after order is conferm");
+    const isConfermed = window.confirm(
+      "Your information cannot be change after order is conferm",
+    );
+    if (!isConfermed) return;
     try {
       setIsLoading(true);
       const requestdata = {
@@ -97,7 +101,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
         amountOfSandPapers: amountOfSandPapers * data.product_quantity,
         quantityOfWood: quantityOfWood * data.product_quantity,
         amountOfPaint: amountOfPaint * data.product_quantity,
-        hours_of_construction: labourHours,
+        hours_of_construction: labourHours * data.product_quantity,
       };
       const res = await axios.post(
         "/api/order/customer-create-order",
@@ -289,6 +293,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
                   Contact Number
                 </FieldLabel>
                 <Input
+                  type="number"
                   {...field}
                   id="form-rhf-demo-constact"
                   aria-invalid={fieldState.invalid}

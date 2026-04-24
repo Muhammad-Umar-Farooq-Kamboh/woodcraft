@@ -1,10 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardTitle,
-} from "@/components/ui/card";
-import { Box, Clock, ShoppingBag, TrendingUp, Truck } from "lucide-react";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Clock, ShoppingBag, TrendingUp, Truck } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 export default function CustomerDashboardTop({ data }: any) {
