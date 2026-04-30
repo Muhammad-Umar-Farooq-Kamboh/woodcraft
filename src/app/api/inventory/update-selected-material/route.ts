@@ -44,12 +44,13 @@ export async function POST(req: Request) {
     }
 
     const updatedUnitPrice = Math.ceil(
-      (selectedMaterial.unit * selectedMaterial.unit_price +
+      (selectedMaterial.unit.toNumber() * selectedMaterial.unit_price +
         Number(unit_price) * Number(numberOfProduct)) /
-        (selectedMaterial.unit + Number(numberOfProduct)),
+        (selectedMaterial.unit.toNumber() + Number(numberOfProduct)),
     );
     // (selectedMaterial.unit_price + Number(unit_price)) / 2;
-    const updatedUnits = selectedMaterial.unit + Number(numberOfProduct);
+    const updatedUnits =
+      selectedMaterial.unit.toNumber() + Number(numberOfProduct);
 
     const updateMaterial = await prisma.material.update({
       where: { id: selectedMaterial.id },
