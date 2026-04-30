@@ -22,9 +22,10 @@ export default function OrderLIstForAdmin({
   const [isLoading, setIsLoading] = useState(false);
   const filteredOrders = useMemo(() => {
     return data.filter((order: any) => {
-      const matchedSearch = order.orderItem.product_type
-        .toLowerCase()
-        .includes(searchQuery);
+      const matchedSearch =
+        order.orderItem.product_type.toLowerCase().includes(searchQuery) ||
+        String(order.order_number).includes(searchQuery) ||
+        order?.assigments?.user.name.toLowerCase().includes(searchQuery);
       const matchedStatus =
         statusFilter === "all" || order.order_status === statusFilter;
 
@@ -135,6 +136,7 @@ export default function OrderLIstForAdmin({
                               changeOrderStatusToDelivered(item.id)
                             }
                             disabled={isLoading}
+                            className="cursor-pointer"
                           >
                             Delivered
                           </Button>
@@ -223,6 +225,10 @@ export default function OrderLIstForAdmin({
                 </div>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-2 gap-2 text-sm w-full">
+                <div>
+                  <span className="text-gray-500">Customer Name:</span>
+                  <div className="font-medium">{item?.user.name}</div>
+                </div>
                 <div>
                   <span className="text-gray-500">Delivery Address:</span>
                   <div className="font-medium">{item.address}</div>
