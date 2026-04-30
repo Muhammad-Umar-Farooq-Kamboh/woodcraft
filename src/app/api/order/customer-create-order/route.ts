@@ -51,25 +51,25 @@ export async function POST(req: Request) {
     const woodType = await prisma.material.findFirst({
       where: { name: product_wood_type },
     });
-    if (!woodType || woodType.unit <= 0) {
+    if (!woodType || woodType.unit.toNumber() <= 0) {
       throw new Error("This wood is out of stock");
     }
     const skrewUsed = await prisma.material.findFirst({
       where: { name: "Wood Screws" },
     });
-    if (!skrewUsed || skrewUsed.unit <= 0.4) {
+    if (!skrewUsed || skrewUsed.unit.toNumber() <= 0.4) {
       throw new Error("Hardware is out of stock");
     }
     const glueUsed = await prisma.material.findFirst({
       where: { name: "Wood Glue" },
     });
-    if (!glueUsed || glueUsed.unit <= 3) {
+    if (!glueUsed || glueUsed.unit.toNumber() <= 3) {
       throw new Error("Accessories is out of stock");
     }
     const sandPaperUsed = await prisma.material.findFirst({
       where: { name: "Sandpaper Set" },
     });
-    if (!sandPaperUsed || sandPaperUsed.unit <= 0.5) {
+    if (!sandPaperUsed || sandPaperUsed.unit.toNumber() <= 0.5) {
       throw new Error("Accessories is out of stock");
     }
     const finishingUsed = await prisma.material.findFirst({
@@ -106,7 +106,7 @@ export async function POST(req: Request) {
       const updatePaint = await prisma.material.update({
         where: { id: finishingUsed.id },
         data: {
-          unit: finishingUsed.unit - amountOfPaint,
+          unit: finishingUsed.unit.toNumber() - amountOfPaint,
         },
       });
       if (!updatePaint) {
@@ -116,20 +116,20 @@ export async function POST(req: Request) {
     const updateWood = await prisma.material.update({
       where: { id: woodType.id },
       data: {
-        unit: woodType.unit - quantityOfWood,
+        unit: woodType.unit.toNumber() - quantityOfWood,
       },
     });
     const updateSkrews = await prisma.material.update({
       where: { id: skrewUsed.id },
-      data: { unit: skrewUsed.unit - amountOfSkrews },
+      data: { unit: skrewUsed.unit.toNumber() - amountOfSkrews },
     });
     const updateGlue = await prisma.material.update({
       where: { id: glueUsed.id },
-      data: { unit: glueUsed.unit - amountOfGlue },
+      data: { unit: glueUsed.unit.toNumber() - amountOfGlue },
     });
     const updateSandPapers = await prisma.material.update({
       where: { id: sandPaperUsed.id },
-      data: { unit: sandPaperUsed.unit - amountOfSandPapers },
+      data: { unit: sandPaperUsed.unit.toNumber() - amountOfSandPapers },
     });
     if (!updateWood || !updateSkrews || !updateGlue || !updateSandPapers) {
       throw new Error("Order created but material not updated");
