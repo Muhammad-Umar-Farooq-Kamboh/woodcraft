@@ -56,7 +56,7 @@ export default function OrderLIstForAdmin({
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap md:flex-nowrap">
         <Input
           placeholder="Search orders by customer, project type, or ID..."
           value={searchQuery}

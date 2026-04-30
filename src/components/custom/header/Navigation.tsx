@@ -49,7 +49,7 @@ const employeeNavItems = [
   },
   {
     icon: <ListChecks size={16} />,
-    text: "My Tasks",
+    text: "My Assigments",
     slug: "/employee/tasks",
   },
   {
@@ -129,10 +129,10 @@ export default function Navigation({
               href={e.slug}
               key={n}
               className={`text-[#B7AA9C] flex items-center gap-2 px-3 py-1 rounded-sm hover:bg-[#E89230] hover:text-black ${pathname === e.slug && "bg-[#E89230] text-black"}`}
+              onClick={() => setcloseDraw(false)}
             >
               {e.icon}
               {e.text}
-              onClick={() => setcloseDraw(false)}
             </Link>
           ))}
         </nav>
