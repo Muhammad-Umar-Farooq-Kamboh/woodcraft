@@ -1,7 +1,10 @@
 "use client";
 
 import EmployeeDashboardOrderList from "@/components/custom/employee/EmployeeDashboardOrderList";
+import EmployeeDashboardThirdSec from "@/components/custom/employee/EmployeeDashboardThirdSec";
 import EmployeeDashboardTop from "@/components/custom/employee/EmployeeDashboardTop";
+import EmployeeTimesheetBottom from "@/components/custom/employee/EmployeeTimesheetBottom";
+import EmployeeTimeSheetBottomSkeleton from "@/components/custom/employee/EmployeeTimeSheetBottomSkeleton";
 import InventorytopSkeleton from "@/components/custom/inventory/InventorytopSkeleton";
 import RecentOrdersSkeleton from "@/components/custom/order/RecentOrdersSkeleton";
 import axios from "axios";
@@ -43,6 +46,14 @@ export default function Page() {
         <RecentOrdersSkeleton />
       ) : (
         <EmployeeDashboardOrderList listOfOrders={listOfOrders} />
+      )}
+      {pageLoading ? (
+        <EmployeeTimeSheetBottomSkeleton />
+      ) : (
+        <EmployeeDashboardThirdSec
+          listOfOrders={listOfOrders}
+          perhourSalary={perhourSalary}
+        />
       )}
     </div>
   );

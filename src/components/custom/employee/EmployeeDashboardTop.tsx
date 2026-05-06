@@ -41,7 +41,7 @@ export default function EmployeeDashboardTop({
                 {listOfOrders?.length || 0}
               </p>
               <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
-                Total Orders
+                Assigned Orders
               </CardTitle>
             </span>
           </CardContent>

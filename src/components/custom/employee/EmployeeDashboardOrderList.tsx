@@ -18,7 +18,7 @@ export default function EmployeeDashboardOrderList({ listOfOrders }: any) {
         <Card className=" bg-[#F9F8F5]">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-[18px] text-[#3D2514] font-bol">
+              <CardTitle className="text-[18px] text-[#3D2514] font-bold">
                 My Recent Orders
               </CardTitle>
               <CardDescription>Your latest woodwork projects</CardDescription>
@@ -82,9 +82,11 @@ export default function EmployeeDashboardOrderList({ listOfOrders }: any) {
                           </div>
                         </div>
                         <div>
-                          <span className="text-gray-500">Total Cost:</span>
+                          <span className="text-gray-500">
+                            Number of Products:
+                          </span>
                           <div className="font-medium">
-                            {assig.order.total_cost}/-
+                            {assig.order?.orderItem?.product_quantity}
                           </div>
                         </div>
                       </div>

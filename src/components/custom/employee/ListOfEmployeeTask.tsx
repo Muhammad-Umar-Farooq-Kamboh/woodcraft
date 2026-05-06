@@ -85,28 +85,33 @@ export default function ListOfEmployeeTask({
           Delivered
         </Button>
       </div>
-      <div className="flex flex-col gap-4">
-        {filteredOrders?.map((item: any, n: number) => (
-          <Collapsible
-            key={n}
-            className="bg-transparent border-1 p-5 rounded-2xl"
-          >
-            <CollapsibleTrigger asChild className="cursor-pointer">
-              <div className="w-full text-left">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <h3 className="font-semibold text-lg">
-                          {item?.order?.orderItem?.product_type}
-                        </h3>
-                        <p className="text-sm text-gray-600">
-                          {item?.order?.orderItem?.product_discription}
-                        </p>
-                      </div>
-                      <div className="flex gap-2 items-center">
-                        <div
-                          className={`
+      {filteredOrders.length <= 0 ? (
+        <div className="text-2xl font-bold text-[#291D14]">
+          No order is assigned to you
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {filteredOrders?.map((item: any, n: number) => (
+            <Collapsible
+              key={n}
+              className="bg-transparent border-1 p-5 rounded-2xl"
+            >
+              <CollapsibleTrigger asChild className="cursor-pointer">
+                <div className="w-full text-left">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className="font-semibold text-lg">
+                            {item?.order?.orderItem?.product_type}
+                          </h3>
+                          <p className="text-sm text-gray-600">
+                            {item?.order?.orderItem?.product_discription}
+                          </p>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                          <div
+                            className={`
                         ${
                           item.order?.order_status === "Pending"
                             ? "bg-black"
@@ -119,93 +124,88 @@ export default function ListOfEmployeeTask({
                                   : "bg-amber-500"
                         } text-white p-1 px-2 rounded-full text-[12px]
                         `}
-                        >
-                          {item?.order?.order_status}
+                          >
+                            {item?.order?.order_status}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                      <div>
-                        <span className="text-gray-500">Order ID:</span>
-                        <div className="font-medium">
-                          ORD{item?.order?.order_number}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                        <div>
+                          <span className="text-gray-500">Order ID:</span>
+                          <div className="font-medium">
+                            ORD{item?.order?.order_number}
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <span className="text-gray-500">Order Date:</span>
-                        <div className="font-medium">
-                          {new Date(
-                            item.order?.created_at,
-                          ).toLocaleDateString()}
+                        <div>
+                          <span className="text-gray-500">Order Date:</span>
+                          <div className="font-medium">
+                            {new Date(
+                              item.order?.created_at,
+                            ).toLocaleDateString()}
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <span className="text-gray-500">Total Cost:</span>
-                        <div className="font-medium">
-                          {item.order?.total_cost}/-
-                        </div>
-                      </div>
-                      <div>
-                        <span className="text-gray-500">Manage Status:</span>
-                        <div className="font-medium">
-                          <ChangeStatusOfOrder
-                            assigmentId={item.id}
-                            orderStatus={item?.order.order_status}
-                            setListOfOrders={setListOfOrders}
-                          />
+                        <div>
+                          <span className="text-gray-500">Manage Status:</span>
+                          <div className="font-medium">
+                            <ChangeStatusOfOrder
+                              assigmentId={item.id}
+                              orderStatus={item?.order.order_status}
+                              setListOfOrders={setListOfOrders}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </CollapsibleTrigger>
-            <CollapsibleContent className="mt-5 flex flex-col gap-5">
-              <Separator />
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm w-full">
-                <div>
-                  <span className="text-gray-500">Wood Type:</span>
-                  <div className="font-medium">
-                    {item.order?.orderItem?.product_wood_type}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-gray-500">Finishing Prefrence:</span>
-                  <div className="font-medium">
-                    {item.order?.orderItem?.finishing_touch}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-gray-500">Number of Products:</span>
-                  <div className="font-medium">
-                    {item.order?.orderItem?.product_quantity}
-                  </div>
-                </div>
-                <div>
-                  <span className="text-gray-500">Working hours:</span>
-                  <div className="font-medium">
-                    {item.order?.orderItem?.hours_of_construction}
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-2 gap-2 text-sm w-full">
-                <div>
-                  <span className="text-gray-500">Customer Name:</span>
-                  <div className="font-medium">{item?.order?.user.name}</div>
-                </div>
-                {item.order?.orderItem?.aditional_info && (
+              </CollapsibleTrigger>
+              <CollapsibleContent className="mt-5 flex flex-col gap-5">
+                <Separator />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm w-full">
                   <div>
-                    <span className="text-gray-500">Additional Note:</span>
+                    <span className="text-gray-500">Wood Type:</span>
                     <div className="font-medium">
-                      {item.order?.orderItem?.aditional_info}
+                      {item.order?.orderItem?.product_wood_type}
                     </div>
                   </div>
-                )}
-              </div>
-            </CollapsibleContent>
-          </Collapsible>
-        ))}
-      </div>
+                  <div>
+                    <span className="text-gray-500">Finishing Prefrence:</span>
+                    <div className="font-medium">
+                      {item.order?.orderItem?.finishing_touch}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">Number of Products:</span>
+                    <div className="font-medium">
+                      {item.order?.orderItem?.product_quantity}
+                    </div>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">Working hours:</span>
+                    <div className="font-medium">
+                      {item.order?.orderItem?.hours_of_construction}
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-2 gap-2 text-sm w-full">
+                  <div>
+                    <span className="text-gray-500">Customer Name:</span>
+                    <div className="font-medium">{item?.order?.user.name}</div>
+                  </div>
+                  {item.order?.orderItem?.aditional_info && (
+                    <div>
+                      <span className="text-gray-500">Additional Note:</span>
+                      <div className="font-medium">
+                        {item.order?.orderItem?.aditional_info}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
