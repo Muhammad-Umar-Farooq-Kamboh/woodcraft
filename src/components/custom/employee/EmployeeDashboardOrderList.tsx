@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-
 import {
   Card,
   CardContent,
@@ -8,14 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import React from "react";
+import CustomerNoOrderComp from "../customer/CustomerNoOrderComp";
 import { useRouter } from "next/navigation";
-import CustomerNoOrderComp from "./CustomerNoOrderComp";
 
-export default function CustomerOrderList({ data }: any) {
+export default function EmployeeDashboardOrderList({ listOfOrders }: any) {
   const navigate = useRouter();
   return (
     <div className="w-full">
-      {data.length > 0 ? (
+      {listOfOrders.length > 0 ? (
         <Card className=" bg-[#F9F8F5]">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
@@ -25,16 +24,15 @@ export default function CustomerOrderList({ data }: any) {
               <CardDescription>Your latest woodwork projects</CardDescription>
             </div>
             <Button
-              className="bg-[#3D2514] hover:bg-[#492a14]"
-              onClick={() => navigate.replace("/customer/new-orders")}
+              variant="link"
+              onClick={() => navigate.replace("/employee/tasks")}
             >
-              <Plus className="size-4 mr-2" />
-              New Order
+              show more
             </Button>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {data.map((order: any, n: number) => (
+              {listOfOrders.slice(0, 2).map((assig: any, n: number) => (
                 <div
                   key={n}
                   className="border rounded-lg p-4 hover:shadow-md transition-shadow"
@@ -44,47 +42,49 @@ export default function CustomerOrderList({ data }: any) {
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="font-semibold text-lg">
-                            {order?.orderItem?.product_type}
+                            {assig.order?.orderItem?.product_type}
                           </h3>
                           <p className="text-sm text-gray-600">
-                            {order?.orderItem?.product_discription}
+                            {assig.order?.orderItem?.product_discription}
                           </p>
                         </div>
                         <div
                           className={`
                         ${
-                          order.order_status === "Pending"
+                          assig.order.order_status === "Pending"
                             ? "bg-black"
-                            : order.order_status === "Delivered"
+                            : assig.order.order_status === "Delivered"
                               ? "bg-green-500"
-                              : order.order_status === "In_Progress"
+                              : assig.order.order_status === "In_Progress"
                                 ? "bg-blue-500"
-                                : order.order_status === "Completed"
+                                : assig.order.order_status === "Completed"
                                   ? "bg-[#3D2514]"
                                   : "bg-amber-500"
                         } text-white p-1 px-2 rounded-full text-[12px]
                         `}
                         >
-                          {order.order_status}
+                          {assig.order.order_status}
                         </div>
                       </div>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
                         <div>
                           <span className="text-gray-500">Order ID:</span>
                           <div className="font-medium">
-                            ORD{order.order_number}
+                            ORD{assig.order.order_number}
                           </div>
                         </div>
                         <div>
                           <span className="text-gray-500">Order Date:</span>
                           <div className="font-medium">
-                            {new Date(order.created_at).toLocaleDateString()}
+                            {new Date(
+                              assig.order.created_at,
+                            ).toLocaleDateString()}
                           </div>
                         </div>
                         <div>
                           <span className="text-gray-500">Total Cost:</span>
                           <div className="font-medium">
-                            {order.total_cost}/-
+                            {assig.order.total_cost}/-
                           </div>
                         </div>
                       </div>
