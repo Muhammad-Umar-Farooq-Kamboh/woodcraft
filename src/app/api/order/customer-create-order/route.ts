@@ -94,6 +94,13 @@ export async function POST(req: Request) {
             hours_of_construction,
           },
         },
+        invoice: {
+          create: {
+            total_amount: Number(price_without_tax),
+            tax: Number(price_without_tax * 0.1),
+            subtotal: Number(price_without_tax * 1.1),
+          },
+        },
       },
       include: { orderItem: true },
     });
