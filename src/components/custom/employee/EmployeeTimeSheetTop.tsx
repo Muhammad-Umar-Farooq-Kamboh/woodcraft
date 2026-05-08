@@ -55,7 +55,7 @@ export default function EmployeeTimeSheetTop({
             <Banknote color="#1972E6" />
             <span>
               <p className="font-bold text-[#291D14] text-2xl">
-                {perhourSalary}
+                {perhourSalary + " PKR"}
               </p>
               <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
                 Hourly Rate
@@ -68,7 +68,7 @@ export default function EmployeeTimeSheetTop({
             <BanknoteArrowUp color="#00C950" />
             <span>
               <p className="font-bold text-[#291D14] text-2xl">
-                {workingHours * perhourSalary}
+                {workingHours * perhourSalary + " PKR"}
               </p>
               <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
                 Estimated Earnings
