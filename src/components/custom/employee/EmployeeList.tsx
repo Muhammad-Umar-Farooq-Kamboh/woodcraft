@@ -22,6 +22,7 @@ export default function EmployeeList({
               <TableHead className="text-[#745247]">Role</TableHead>
               <TableHead className="text-[#745247]">Hourly Rate</TableHead>
               <TableHead className="text-[#745247]">Hours Worked</TableHead>
+              <TableHead className="text-[#745247]">Total Earnimg</TableHead>
               <TableHead className="text-[#745247]">Active Orders</TableHead>
               <TableHead className="text-[#745247]">Action </TableHead>
             </TableRow>
@@ -33,8 +34,19 @@ export default function EmployeeList({
                   <TableCell>{e.name}</TableCell>
                   <TableCell>{e.role}</TableCell>
                   <TableCell>{e?.profile?.rate_per_hour || 1000}/-</TableCell>
-                  <TableCell>0</TableCell>
-                  <TableCell>0</TableCell>
+                  <TableCell>
+                    {e.assigment.reduce((sum: number, elem: any) => {
+                      return sum + elem.hours;
+                    }, 0)}
+                  </TableCell>
+                  <TableCell>
+                    {e?.profile?.rate_per_hour *
+                      e.assigment.reduce((sum: number, elem: any) => {
+                        return sum + elem.hours;
+                      }, 0)}
+                    /-
+                  </TableCell>
+                  <TableCell>{e?.assigment.length}</TableCell>
                   <TableCell>
                     <EditEmployee
                       data={e}

@@ -87,6 +87,23 @@ export default function EmployeeTop({
       address: "",
     },
   });
+
+  const totalHoursOfWorking = listOfEmployee.reduce((sum: number, ass: any) => {
+    const hoursOfEveryEmp = ass.assigment.reduce((sum: number, ass: any) => {
+      return sum + ass.hours;
+    }, 0);
+    return sum + hoursOfEveryEmp;
+  }, 0);
+
+  const totalEarning = listOfEmployee.reduce((sum: number, emp: any) => {
+    const totalEarningOfEmp =
+      emp.profile.rate_per_hour *
+      emp.assigment.reduce((sum: number, ass: any) => {
+        return sum + ass.hours;
+      }, 0);
+    return sum + totalEarningOfEmp;
+  }, 0);
+
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
@@ -378,7 +395,7 @@ export default function EmployeeTop({
               Total Staff
             </CardTitle>
             <p className="font-bold text-[#291D14] text-2xl">
-              {/* {data?.Wood?.length || 0} */}5
+              {listOfEmployee.length || 0}
             </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
               team members
@@ -391,7 +408,7 @@ export default function EmployeeTop({
               Active
             </CardTitle>
             <p className="font-bold text-[#291D14] text-2xl">
-              {/* {data?.Hardware?.length || 0} */}4
+              {listOfEmployee.length || 0}
             </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
               currently working
@@ -401,14 +418,13 @@ export default function EmployeeTop({
         <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
-              Total Hours (Feb)
+              Total Hours
             </CardTitle>
             <p className="font-bold text-[#291D14] text-2xl">
-              {/* {data?.Accessories?.length || 0} */}
-              584
+              {totalHoursOfWorking}
             </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
-              hours logged
+              worked
             </CardDescription>
           </CardContent>
         </Card>
@@ -418,8 +434,7 @@ export default function EmployeeTop({
               Est. Payroll
             </CardTitle>
             <p className="font-bold text-[#291D14] text-2xl">
-              {/* {data?.Finishing?.length || 0} */}
-              $13,016
+              {totalEarning + "PKR"}
             </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
               this month

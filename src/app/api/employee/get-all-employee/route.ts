@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     }
     const listOfEmployee = await prisma.user.findMany({
       where: { OR: [{ role: "employee" }, { role: "supplier" }] },
-      include: { profile: true },
+      include: { profile: true, assigment: true },
       omit: { password: true },
     });
     return Response.json(
