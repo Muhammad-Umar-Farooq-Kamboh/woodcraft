@@ -22,7 +22,7 @@ export default function AdminBillingBottom({ listOfInvoice }: any) {
             <TableRow className="bg-[#FCF8F0] uppercase">
               <TableHead className="text-[#745247]">Invoice</TableHead>
               <TableHead className="text-[#745247]">Order</TableHead>
-              <TableHead className="text-[#745247]">Stock Customer</TableHead>
+              <TableHead className="text-[#745247]">Customer</TableHead>
               <TableHead className="text-[#745247]">Amount</TableHead>
               <TableHead className="text-[#745247]">Order Date</TableHead>
               <TableHead className="text-[#745247]">Status</TableHead>
@@ -44,8 +44,8 @@ export default function AdminBillingBottom({ listOfInvoice }: any) {
                     </span>
                     INV-00{inv.invoice_number}
                   </TableCell>
-                  <TableCell>ORD-004</TableCell>
-                  <TableCell>Emily Walsh</TableCell>
+                  <TableCell>ORD-{inv.order.order_number}</TableCell>
+                  <TableCell>{inv.order.user.name}</TableCell>
                   <TableCell>{inv.subtotal}/-</TableCell>
                   <TableCell>
                     {new Date(inv.created_at).toLocaleDateString()}

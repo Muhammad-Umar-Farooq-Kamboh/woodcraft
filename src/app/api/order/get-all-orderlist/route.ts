@@ -14,8 +14,8 @@ export async function GET(req: Request) {
     const listOfOrders = await prisma.order.findMany({
       include: {
         orderItem: true,
-        user: true,
-        assigments: { include: { user: true } },
+        user: { omit: { password: true } },
+        assigments: { include: { user: { omit: { password: true } } } },
       },
     });
     return Response.json(
