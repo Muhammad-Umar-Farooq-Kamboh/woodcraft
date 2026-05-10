@@ -36,7 +36,7 @@ export default function RevniueAndExpences({ listOfOrders }: any) {
           <div>
             <div className="flex items-center justify-between mb-1">
               <span className="text-sm font-body text-muted-foreground">
-                Expenses
+                Estimated Expenses
               </span>
               <span className="text-sm font-semibold font-body text-foreground">
                 {totalExpensie.toLocaleString()}/-
@@ -54,7 +54,7 @@ export default function RevniueAndExpences({ listOfOrders }: any) {
           <div>
             <div className="flex items-center justify-between mb-1">
               <span className="text-sm font-body text-muted-foreground">
-                Profit
+                Estimated Profit
               </span>
               <span className="text-sm font-semibold font-body text-[#22A050]">
                 {profit.toLocaleString()}/-

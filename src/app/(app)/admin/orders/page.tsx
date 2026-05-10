@@ -1,5 +1,6 @@
 "use client";
 
+import AdminCreateOrder from "@/components/custom/order/admin/AdminCreateOrder";
 import OrderLIstForAdmin from "@/components/custom/order/admin/OrderLIstForAdmin";
 import OrderListSkeleton from "@/components/custom/order/admin/OrderListSkeleton";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -10,12 +11,20 @@ export default function Page() {
   const [listOfOrders, setListOfOrders] = useState([]);
   const [listOfEmployee, setListOfEmployee] = useState([]);
   const [isPageLoading, setIsPageLoading] = useState(true);
+  const [listOfWoodCategorie, setListOfWoodCategorie] = useState([]);
+  const [listOfCustomers, setListOfCustomers] = useState([]);
   useEffect(() => {
     (async function () {
       const res = await axios.get("/api/order/get-all-orderlist");
       setListOfOrders(res.data.data);
       const resemp = await axios.get("/api/employee/get-all-employee-only");
       setListOfEmployee(resemp.data.data);
+      const resWoodCat = await axios.get("/api/inventory/get-wood-material");
+      setListOfWoodCategorie(resWoodCat.data.data);
+      const resCustomer = await axios.get(
+        "/api/customer/get-list-of-customer-name",
+      );
+      setListOfCustomers(resCustomer.data.data);
       setIsPageLoading(false);
     })();
   }, []);
@@ -37,7 +46,11 @@ export default function Page() {
               {listOfOrders.length} total orders
             </p>
           </div>
-          Add New Order
+          <AdminCreateOrder
+            listOfWoodCategorie={listOfWoodCategorie}
+            listOfCustomers={listOfCustomers}
+            setListOfOrders={setListOfOrders}
+          />
         </div>
       )}
       {isPageLoading ? (
