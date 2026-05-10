@@ -13,35 +13,38 @@ export default function AdminDashboardBottom({
             Recent Orders
           </h2>
         </div>
-        <div className="divide-y divide-border">
-          {listOfOrders.map((order: any, n: number) => (
-            <div
-              key={n}
-              className="px-5 py-3.5 flex items-center justify-between hover:bg-muted/50 transition-colors"
-            >
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground font-body font-medium">
-                    {"ORD-" + order.order_number}
-                  </span>
-                  <span className="text-xs text-border">·</span>
-                  <span className="text-xs text-muted-foreground font-body">
-                    {order.orderItem.product_type}
-                  </span>
+        {listOfOrders < 1 ? (
+          <div className="text-center p-2">There is no order till yet.</div>
+        ) : (
+          <div className="divide-y divide-border">
+            {listOfOrders.map((order: any, n: number) => (
+              <div
+                key={n}
+                className="px-5 py-3.5 flex items-center justify-between hover:bg-muted/50 transition-colors"
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground font-body font-medium">
+                      {"ORD-" + order.order_number}
+                    </span>
+                    <span className="text-xs text-border">·</span>
+                    <span className="text-xs text-muted-foreground font-body">
+                      {order.orderItem.product_type}
+                    </span>
+                  </div>
+                  <p className="text-sm font-medium text-foreground font-body mt-0.5 truncate">
+                    {order.orderItem.product_discription}
+                  </p>
+                  <p className="text-xs text-muted-foreground font-body">
+                    {order.user.name}
+                  </p>
                 </div>
-                <p className="text-sm font-medium text-foreground font-body mt-0.5 truncate">
-                  {order.orderItem.product_discription}
-                </p>
-                <p className="text-xs text-muted-foreground font-body">
-                  {order.user.name}
-                </p>
-              </div>
-              <div className="flex items-center gap-3 ml-4 shrink-0">
-                <span className="text-sm font-semibold text-foreground font-body">
-                  {order.total_cost + " PKR"}
-                </span>
-                <div
-                  className={`
+                <div className="flex items-center gap-3 ml-4 shrink-0">
+                  <span className="text-sm font-semibold text-foreground font-body">
+                    {order.total_cost + " PKR"}
+                  </span>
+                  <div
+                    className={`
                         ${
                           order.order_status === "Pending"
                             ? "bg-black"
@@ -54,13 +57,14 @@ export default function AdminDashboardBottom({
                                   : "bg-amber-500"
                         } text-white p-1 px-2 rounded-full text-[12px]
                         `}
-                >
-                  {order.order_status}
+                  >
+                    {order.order_status}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
@@ -103,7 +107,7 @@ export default function AdminDashboardBottom({
         )}
       </div>
 
-      <RevniueAndExpences />
+      <RevniueAndExpences listOfOrders={listOfOrders} />
     </div>
   );
 }

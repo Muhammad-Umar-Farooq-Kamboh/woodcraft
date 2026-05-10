@@ -63,13 +63,17 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
   const [finishingPrefrencesCost, setFinishingPrefrencesCost] = useState(0);
   const [quantityOfWood, setQuantityOfWood] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  // Total no pproduct a customer inputs ( (price of single wood + percentage of profit) * how much wood consume on making single product + (labour const per hour) + finishinf cost )
   const price_without_tax =
     noOfProducts *
     ((woodcost + woodcost * 0.05) * quantityOfWood +
       labourHours * labourCostPerHour +
       finishingPrefrencesCost);
 
-  // Total no pproduct a customer inputs ( (price of single wood + percentage of profit) * how much wood consume on making single product + (labour const per hour) + finishinf cost )
+  // Total labour cost = Total number of product * (Labour const per hour * Total labour cost)
+  const labour_cost = noOfProducts * (labourCostPerHour * labourHours);
+
+  const material_cost = woodcost * quantityOfWood * noOfProducts;
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema as any),
     defaultValues: {
@@ -96,6 +100,8 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
       const requestdata = {
         ...data,
         price_without_tax,
+        labour_cost,
+        material_cost,
         amountOfGlue: amountOfGlue * data.product_quantity,
         amountOfSkrews: amountOfSkrews * data.product_quantity,
         amountOfSandPapers: amountOfSandPapers * data.product_quantity,

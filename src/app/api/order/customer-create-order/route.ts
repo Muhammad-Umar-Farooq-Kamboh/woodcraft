@@ -27,6 +27,8 @@ export async function POST(req: Request) {
       quantityOfWood,
       hours_of_construction,
       amountOfPaint,
+      labour_cost,
+      material_cost,
     } = await req.json();
     if (
       !address ||
@@ -42,7 +44,9 @@ export async function POST(req: Request) {
       !product_wood_type ||
       !quantityOfWood ||
       !hours_of_construction ||
-      !amountOfPaint
+      !amountOfPaint ||
+      !labour_cost ||
+      !material_cost
     ) {
       throw new Error("Please enter all entities");
     }
@@ -80,6 +84,8 @@ export async function POST(req: Request) {
     const createOrder = await prisma.order.create({
       data: {
         total_cost: Number(price_without_tax * 1.1),
+        labour_cost: Number(labour_cost),
+        material_cost: Number(material_cost),
         address,
         contact,
         userId,

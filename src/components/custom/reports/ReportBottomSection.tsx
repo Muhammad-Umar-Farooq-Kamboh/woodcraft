@@ -1,6 +1,8 @@
 import { projectTypes } from "@/data/InventoryData";
+import RevniueAndExpences from "../admin/RevniueAndExpences";
 
 export default function ReportBottomSection({ listOfInvoice }: any) {
+  const listOfOrders = listOfInvoice.map((order: any) => order.order);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
       <div className="bg-card rounded-xl shadow-card border border-border p-5">
@@ -93,6 +95,8 @@ export default function ReportBottomSection({ listOfInvoice }: any) {
           })}
         </div>
       </div>
+
+      <RevniueAndExpences listOfOrders={listOfOrders} />
     </div>
   );
 }

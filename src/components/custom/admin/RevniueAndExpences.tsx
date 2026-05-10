@@ -1,9 +1,20 @@
-export default function RevniueAndExpences() {
+export default function RevniueAndExpences({ listOfOrders }: any) {
+  const totalRevinue = listOfOrders.reduce((sum: number, order: any) => {
+    return sum + order.total_cost;
+  }, 0);
+  const toatalMaterialCost = listOfOrders.reduce((sum: number, order: any) => {
+    return sum + order.material_cost;
+  }, 0);
+  const totalLabourCost = listOfOrders.reduce((sum: number, order: any) => {
+    return sum + order.labour_cost;
+  }, 0);
+  const totalExpensie = toatalMaterialCost + totalLabourCost;
+  const profit = totalRevinue - totalExpensie;
   return (
     <div className="md:col-span-3">
       <div className="bg-card rounded-xl shadow-card border border-border p-5">
         <h2 className="font-display font-semibold text-foreground mb-4">
-          Revenue vs Expenses — February 2026
+          Revenue vs Expenses
         </h2>
         <div className="space-y-3">
           <div>
@@ -12,7 +23,7 @@ export default function RevniueAndExpences() {
                 Revenue
               </span>
               <span className="text-sm font-semibold font-body text-foreground">
-                {/* ${monthlyStats.revenue.toLocaleString()} */} 50000/-
+                {totalRevinue.toLocaleString()}/-
               </span>
             </div>
             <div className="h-3 bg-muted rounded-full overflow-hidden">
@@ -28,14 +39,14 @@ export default function RevniueAndExpences() {
                 Expenses
               </span>
               <span className="text-sm font-semibold font-body text-foreground">
-                {/* ${monthlyStats.expenses.toLocaleString()} */}2500/-
+                {totalExpensie.toLocaleString()}/-
               </span>
             </div>
             <div className="h-3 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full bg-[#1972E6]"
                 style={{
-                  width: `${(2500 / 5000) * 100}%`,
+                  width: `${(totalExpensie / totalRevinue) * 100}%`,
                 }}
               />
             </div>
@@ -46,13 +57,13 @@ export default function RevniueAndExpences() {
                 Profit
               </span>
               <span className="text-sm font-semibold font-body text-[#22A050]">
-                {/* ${profit.toLocaleString()} */} 2500/-
+                {profit.toLocaleString()}/-
               </span>
             </div>
             <div className="h-3 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full rounded-full bg-[#22A050]"
-                style={{ width: `${(2500 / 5000) * 100}%` }}
+                style={{ width: `${(profit / totalRevinue) * 100}%` }}
               />
             </div>
           </div>
