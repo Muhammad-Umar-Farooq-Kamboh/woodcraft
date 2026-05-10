@@ -65,6 +65,8 @@ model Order {
   order_number   Int          @unique @default(autoincrement())
   order_status   Order_status @default(Pending)
   total_cost     Int
+  material_cost  Int
+  labour_cost    Int
   address        String
   contact        String
   payment_status Boolean      @default(false)
