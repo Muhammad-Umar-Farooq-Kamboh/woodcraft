@@ -28,7 +28,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import Logo from "@/components/custom/logo/Logo";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -45,6 +45,7 @@ const formSchema = z.object({
 
 export default function Page() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [passwordState, setPasswordState] = useState("password");
   const [isloading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,13 +63,36 @@ export default function Page() {
       email: data.email,
       password: data.password,
     });
+    console.log(result);
+
     if (result?.error) {
       toast.error(result.error);
+      setIsLoading(false);
     } else {
       toast.success("User logged in");
-      router.replace("/");
+
+      // Get the updated session with user role
+      const newSession = await fetch("/api/auth/session").then((res) =>
+        res.json(),
+      );
+
+      if (newSession?.user?.role) {
+        const userRole = newSession.user.role.toLowerCase();
+
+        if (userRole === "admin") {
+          router.replace("/admin");
+        } else if (userRole === "supplier") {
+          router.replace("/supplier");
+        } else if (userRole === "employee") {
+          router.replace("/employee");
+        } else {
+          router.replace("/customer");
+        }
+      } else {
+        // Fallback if role is not available
+        router.replace("/");
+      }
     }
-    setIsLoading(false);
   }
   return (
     <div className="min-w-full flex flex-col justify-center items-center min-h-screen bg-white">
@@ -83,10 +107,10 @@ export default function Page() {
       <Card className="w-full max-w-sm border-none shadow-none">
         <CardHeader>
           <CardTitle className="text-center text-[#3D2514] text-2xl font-bold">
-            Create Account
+            Sign In
           </CardTitle>
           <CardDescription className="text-center">
-            Get started with your Woodcraft workspace
+            Enter your credentials to access your account
           </CardDescription>
         </CardHeader>
         <CardContent>

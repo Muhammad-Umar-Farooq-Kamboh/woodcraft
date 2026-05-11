@@ -25,6 +25,12 @@ export async function POST(req: Request) {
       where: { id: orderId },
       data: {
         order_status: orderStatus,
+        payment_status: true,
+        invoice: {
+          update: {
+            payment_status: true,
+          },
+        },
       },
       include: {
         orderItem: true,

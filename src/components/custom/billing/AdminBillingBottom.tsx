@@ -58,7 +58,7 @@ export default function AdminBillingBottom({ listOfInvoice }: any) {
                     </span>
                   </TableCell>
                   <TableCell>
-                    <InvoiceComponent />
+                    <InvoiceComponent invoice={inv} />
                   </TableCell>
                 </TableRow>
               ))}
