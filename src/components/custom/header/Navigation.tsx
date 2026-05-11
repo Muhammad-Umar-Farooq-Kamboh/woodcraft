@@ -70,11 +70,6 @@ const supplierNavItems = [
     text: "Inventory",
     slug: "/supplier/inventory",
   },
-  {
-    icon: <Handbag size={16} />,
-    text: "Orders",
-    slug: "/supplier/orders",
-  },
 ];
 export default function Navigation({
   role,

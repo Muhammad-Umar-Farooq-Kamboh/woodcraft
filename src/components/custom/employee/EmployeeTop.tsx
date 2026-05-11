@@ -434,10 +434,10 @@ export default function EmployeeTop({
               Est. Payroll
             </CardTitle>
             <p className="font-bold text-[#291D14] text-2xl">
-              {totalEarning + "PKR"}
+              {totalEarning + " PKR"}
             </p>
             <CardDescription className="text-[#745247] text-[14px] font-normal">
-              this month
+              this year
             </CardDescription>
           </CardContent>
         </Card>

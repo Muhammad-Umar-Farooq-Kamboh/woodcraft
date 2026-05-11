@@ -103,13 +103,18 @@ export default function Inventorytop({
       setOpenDialog(false);
     }
   }
+
+  const lowStockMaterial = listOfMaterials.filter(
+    (m: any) => m.unit < m.low_stock_threshold,
+  );
   return (
     <div className="w-full flex flex-col gap-8">
       <div className="flex justify-between items-center w-full">
         <div>
           <h3 className="text-2xl font-bold text-[#291D14]">Inventory</h3>
           <p className="text-[#745247] text-[14px]">
-            10 materials tracked · 4 low stock alerts
+            {listOfMaterials.length} materials tracked ·{" "}
+            {lowStockMaterial.length} low stock alerts
           </p>
         </div>
         <Dialog open={openDialog} onOpenChange={setOpenDialog}>
