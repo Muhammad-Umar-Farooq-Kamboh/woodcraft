@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
@@ -33,14 +33,20 @@ export async function middleware(request: NextRequest) {
     customer: ["/customer", "/profile"],
   } as const;
 
-  const roleRoutes = {
+  type RoleType = keyof typeof rolePermissions;
+
+  const roleRoutes: Record<RoleType, string> = {
     admin: "/admin",
     employee: "/employee",
     supplier: "/supplier",
     customer: "/customer",
-  } as const;
+  };
 
-  if (!userRole || !(userRole in rolePermissions)) {
+  const isRole = (role: string | undefined): role is RoleType => {
+    return Boolean(role && role in rolePermissions);
+  };
+
+  if (!isRole(userRole)) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 
