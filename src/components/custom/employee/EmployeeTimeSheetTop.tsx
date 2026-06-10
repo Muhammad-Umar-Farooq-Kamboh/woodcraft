@@ -24,7 +24,7 @@ export default function EmployeeTimeSheetTop({
         </p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <ShoppingBag color="#3D2514" />
             <span>
@@ -37,7 +37,7 @@ export default function EmployeeTimeSheetTop({
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <Clock9 color="#f90101" />
             <span>
@@ -50,7 +50,7 @@ export default function EmployeeTimeSheetTop({
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <Banknote color="#1972E6" />
             <span>
@@ -63,7 +63,7 @@ export default function EmployeeTimeSheetTop({
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <BanknoteArrowUp color="#00C950" />
             <span>

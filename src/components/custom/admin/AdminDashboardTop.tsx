@@ -48,7 +48,7 @@ export default function AdminDashboardTop({
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Card
-          size="sm"
+          // size="sm"
           className="mx-auto w-full max-w-sm h-fit py-5 bg-[#7C4C22] text-white"
         >
           <CardContent>
@@ -61,7 +61,10 @@ export default function AdminDashboardTop({
             <p className="font-bold text-2xl">{totalRevenue + " PKR"}</p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card
+          // size="sm"
+          className="mx-auto w-full max-w-sm h-fit py-5"
+        >
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Total Orders
@@ -74,7 +77,10 @@ export default function AdminDashboardTop({
             </p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card
+          //  size="sm"
+          className="mx-auto w-full max-w-sm h-fit py-5"
+        >
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Total Employee
@@ -87,7 +93,10 @@ export default function AdminDashboardTop({
             </p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card
+          // size="sm"
+          className="mx-auto w-full max-w-sm h-fit py-5"
+        >
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Low Stock Alerts
@@ -102,7 +111,10 @@ export default function AdminDashboardTop({
         </Card>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card
+          // size="sm"
+          className="mx-auto w-full max-w-sm h-fit py-3"
+        >
           <CardContent className="flex items-center gap-4">
             <Clock color="#F29E0D" />
             <span>
@@ -115,7 +127,10 @@ export default function AdminDashboardTop({
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card
+          // size="sm"
+          className="mx-auto w-full max-w-sm h-fit py-3"
+        >
           <CardContent className="flex items-center gap-4">
             <TrendingUp color="#1972E6" />
             <span>
@@ -128,7 +143,10 @@ export default function AdminDashboardTop({
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card
+          // size="sm"
+          className="mx-auto w-full max-w-sm h-fit py-3"
+        >
           <CardContent className="flex items-center gap-4">
             <CircleCheck color="#22A050" />
             <span>
@@ -141,7 +159,10 @@ export default function AdminDashboardTop({
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card
+          // size="sm"
+          className="mx-auto w-full max-w-sm h-fit py-3"
+        >
           <CardContent className="flex items-center gap-4">
             <Truck color="#6F4120" />
             <span>

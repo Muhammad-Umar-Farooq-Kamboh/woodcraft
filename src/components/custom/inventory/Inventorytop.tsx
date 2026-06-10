@@ -300,7 +300,7 @@ export default function Inventorytop({
         </Dialog>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Wood
@@ -313,7 +313,7 @@ export default function Inventorytop({
             </CardDescription>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Hardware
@@ -326,7 +326,7 @@ export default function Inventorytop({
             </CardDescription>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Accessories
@@ -339,7 +339,7 @@ export default function Inventorytop({
             </CardDescription>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Finishing

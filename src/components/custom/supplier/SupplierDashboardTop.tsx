@@ -21,7 +21,7 @@ export default function SupplierDashboardTop({
         </p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Total
@@ -37,7 +37,7 @@ export default function SupplierDashboardTop({
             </CardDescription>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               low stock
@@ -53,7 +53,7 @@ export default function SupplierDashboardTop({
             </CardDescription>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Wood

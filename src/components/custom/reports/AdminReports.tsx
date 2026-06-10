@@ -34,7 +34,7 @@ export default function AdminReports({ listOfInvoice, listOfEmployee }: any) {
             <p className="font-bold text-2xl">{totalRevenue + " PKR"}</p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card className="mx-auto w-full max-w-sm h-fit py-5">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Total Orders
@@ -47,7 +47,7 @@ export default function AdminReports({ listOfInvoice, listOfEmployee }: any) {
             </p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card className="mx-auto w-full max-w-sm h-fit py-5">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Total Employee
@@ -60,7 +60,7 @@ export default function AdminReports({ listOfInvoice, listOfEmployee }: any) {
             </p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card className="mx-auto w-full max-w-sm h-fit py-5">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Total Working Hours

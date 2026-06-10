@@ -34,10 +34,7 @@ export default function AdminBillingTop({ listOfInvoice }: any) {
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card
-          size="sm"
-          className="mx-auto w-full max-w-sm h-fit py-5 bg-[#7C4C22] text-white"
-        >
+        <Card className="mx-auto w-full max-w-sm h-fit py-5 bg-[#7C4C22] text-white">
           <CardContent>
             <CardTitle className=" text-[14px] font-normal uppercase">
               Collected Payments
@@ -48,7 +45,7 @@ export default function AdminBillingTop({ listOfInvoice }: any) {
             <p className="font-bold text-2xl">{totalPaidPayment + " PKR"}</p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card className="mx-auto w-full max-w-sm h-fit py-5">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Pending Payments
@@ -61,7 +58,7 @@ export default function AdminBillingTop({ listOfInvoice }: any) {
             </p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card className="mx-auto w-full max-w-sm h-fit py-5">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Paid Invoices
@@ -74,7 +71,7 @@ export default function AdminBillingTop({ listOfInvoice }: any) {
             </p>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-5">
+        <Card className="mx-auto w-full max-w-sm h-fit py-5">
           <CardContent>
             <CardTitle className="text-[#745247] text-[14px] font-normal uppercase">
               Pending Invoices

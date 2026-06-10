@@ -27,7 +27,7 @@ export default function CustomerDashboardTop({ data }: any) {
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <ShoppingBag color="#3D2514" />
             <span>
@@ -40,7 +40,7 @@ export default function CustomerDashboardTop({ data }: any) {
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <Clock color="#F29E0D" />
             <span>
@@ -53,7 +53,7 @@ export default function CustomerDashboardTop({ data }: any) {
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <TrendingUp color="#1972E6" />
             <span>
@@ -66,7 +66,7 @@ export default function CustomerDashboardTop({ data }: any) {
             </span>
           </CardContent>
         </Card>
-        <Card size="sm" className="mx-auto w-full max-w-sm h-fit py-3">
+        <Card className="mx-auto w-full max-w-sm h-fit py-3">
           <CardContent className="flex items-center gap-4">
             <Truck color="#6F4120" />
             <span>
