@@ -92,7 +92,7 @@ export default function Inventorytop({
     try {
       const res = await axios.post("/api/inventory/add-material", data);
       if (res.status === 200) {
-        setListOfMaterials((prev) => [...prev, res.data.data]);
+        setListOfMaterials((prev: any) => [...prev, res.data.data]);
         toast.success(res.data.message || "Materail added successfully");
       }
     } catch (error: any) {

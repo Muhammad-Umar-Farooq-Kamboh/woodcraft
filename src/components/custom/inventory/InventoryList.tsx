@@ -16,7 +16,9 @@ export default function InventoryList({
   setListOfMaterials,
 }: any) {
   const [categorie, setCategorie] = useState("All");
-  const filtered = listOfMaterials.filter((e) => e.categorie === categorie);
+  const filtered = listOfMaterials.filter(
+    (e: any) => e.categorie === categorie,
+  );
   const data = categorie === "All" ? listOfMaterials : filtered;
   return (
     <div className="w-full flex flex-col gap-8">

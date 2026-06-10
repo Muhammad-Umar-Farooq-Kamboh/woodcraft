@@ -132,7 +132,7 @@ export default function AdminCreateOrder({
         requestdata,
       );
       if (res.status === 200) {
-        setListOfOrders((prev) => [...prev, res.data.data]);
+        setListOfOrders((prev: any) => [...prev, res.data.data]);
         toast.success(res.data.message || "Order created Successfully");
       }
     } catch (error: any) {

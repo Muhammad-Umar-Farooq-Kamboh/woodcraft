@@ -20,10 +20,7 @@ export default function AdminReports({ listOfInvoice, listOfEmployee }: any) {
         <p className="text-[#745247] text-[14px]">Year 2026 Overview</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card
-          size="sm"
-          className="mx-auto w-full max-w-sm h-fit py-5 bg-[#7C4C22] text-white"
-        >
+        <Card className="mx-auto w-full max-w-sm h-fit py-5 bg-[#7C4C22] text-white">
           <CardContent>
             <CardTitle className=" text-[14px] font-normal uppercase">
               Total Revenue
