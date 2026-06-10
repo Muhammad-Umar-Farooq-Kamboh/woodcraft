@@ -86,7 +86,9 @@ export default function InvoiceComponent({ invoice }: any) {
                 <div className="text-right">
                   <h2 className="text-2xl font-bold">INVOICE</h2>
                   <p className="text-sm mt-2">
-                    <span className="font-medium">Invoice #:</span>
+                    <span className="font-medium">
+                      Invoice #: {invoice.invoice_number}
+                    </span>
                   </p>
                   <p className="text-sm">
                     <span className="font-medium">Date:</span>

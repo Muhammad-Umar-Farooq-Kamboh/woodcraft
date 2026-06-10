@@ -32,7 +32,7 @@ export async function proxy(request: NextRequest) {
     supplier: ["/supplier", "/profile"],
     customer: ["/customer", "/profile"],
   } as const;
-  console.log("Test");
+  // console.log("Test");
 
   type RoleType = keyof typeof rolePermissions;
 
