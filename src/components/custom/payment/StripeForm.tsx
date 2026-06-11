@@ -5,6 +5,7 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -12,9 +13,13 @@ import { toast } from "sonner";
 export default function StripeForm({
   amount,
   setOpenDialog,
+  orderId,
+  setListOfOrders,
 }: {
   amount: number;
   setOpenDialog: any;
+  orderId: string;
+  setListOfOrders: any;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -23,6 +28,23 @@ export default function StripeForm({
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
 
+  async function updatePaymentStatus(id: string) {
+    try {
+      const res = await axios.patch("/api/payment/update-payment-status", {
+        id,
+      });
+      if (res.status === 200) {
+        toast.success(res.data.message || "Payment accepted successfully");
+        setListOfOrders((prev) =>
+          prev.map((o: any) => (o.id === res.data.data.id ? res.data.data : o)),
+        );
+        return true;
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data.message || "Error in updating payment");
+      return false;
+    }
+  }
   useEffect(() => {
     (async function () {
       await fetch("/api/payment/create-payment-intend", {
@@ -46,14 +68,14 @@ export default function StripeForm({
       return;
     }
 
-    const { error: submitError } = await elements.submit();
+    const { error: submitError }: any = await elements.submit();
     if (submitError) {
       setErrorMessage(submitError.message);
       setLoading(false);
       return;
     }
 
-    const { error, paymentIntent } = await stripe.confirmPayment({
+    const { error, paymentIntent }: any = await stripe.confirmPayment({
       elements,
       clientSecret,
       confirmParams: {
@@ -68,7 +90,10 @@ export default function StripeForm({
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       console.log("Status:", paymentIntent.status);
       console.log("Amount Paid:", paymentIntent.amount / 100);
-      setOpenDialog(false);
+      const updated = await updatePaymentStatus(orderId);
+      if (updated) {
+        setOpenDialog(false);
+      }
     }
     setLoading(false);
   };

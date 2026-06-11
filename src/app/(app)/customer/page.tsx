@@ -27,7 +27,10 @@ export default function Page() {
       {pageLoading ? (
         <RecentOrdersSkeleton />
       ) : (
-        <CustomerOrderList data={listOfOrders} />
+        <CustomerOrderList
+          data={listOfOrders}
+          setListOfOrders={setListOfOrders}
+        />
       )}
     </div>
   );

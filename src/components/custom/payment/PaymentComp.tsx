@@ -13,9 +13,13 @@ const stripePromise = loadStripe(
 export default function PaymentComp({
   amount,
   setOpenDialog,
+  orderId,
+  setListOfOrders,
 }: {
   amount: number;
   setOpenDialog: any;
+  orderId: string;
+  setListOfOrders: any;
 }) {
   return (
     <div>
@@ -27,7 +31,12 @@ export default function PaymentComp({
           currency: "pkr",
         }}
       >
-        <StripeForm amount={amount} setOpenDialog={setOpenDialog} />
+        <StripeForm
+          amount={amount}
+          setOpenDialog={setOpenDialog}
+          orderId={orderId}
+          setListOfOrders={setListOfOrders}
+        />
       </Elements>
     </div>
   );

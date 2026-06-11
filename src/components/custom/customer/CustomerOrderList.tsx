@@ -23,7 +23,7 @@ import { useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 import PaymentComp from "../payment/PaymentComp";
 
-export default function CustomerOrderList({ data }: any) {
+export default function CustomerOrderList({ data, setListOfOrders }: any) {
   const navigate = useRouter();
   const printRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
@@ -304,6 +304,8 @@ export default function CustomerOrderList({ data }: any) {
                         <PaymentComp
                           amount={order.invoice.subtotal}
                           setOpenDialog={setOpenDialog}
+                          orderId={order.id}
+                          setListOfOrders={setListOfOrders}
                         />
                       </DialogContent>
                     )}
