@@ -133,21 +133,27 @@ export default function OrderLIstForAdmin({
                             {item?.orderItem?.product_discription}
                           </p>
                         </div>
-                        <div className="flex gap-2 items-center">
-                          {item.order_status === "Completed" && (
-                            <Button
-                              variant="destructive"
-                              onClick={() =>
-                                changeOrderStatusToDelivered(item.id)
-                              }
-                              disabled={isLoading}
-                              className="cursor-pointer"
-                            >
-                              Delivered
-                            </Button>
-                          )}
+                        <div className="flex gap-4">
                           <div
-                            className={`
+                            className={`px-2 border ${item.payment_status ? "bg-[#E2F1E7] text-[#00c950]  border-[#00C950] rounded-2xl" : "bg-[#FBF1DF] text-[#F29E2F] border-[#F29E2F] rounded-2xl"} `}
+                          >
+                            {item.payment_status ? "Paid" : "Unpaid"}
+                          </div>
+                          <div className="flex gap-2 items-center">
+                            {item.order_status === "Completed" && (
+                              <Button
+                                variant="destructive"
+                                onClick={() =>
+                                  changeOrderStatusToDelivered(item.id)
+                                }
+                                disabled={isLoading}
+                                className="cursor-pointer"
+                              >
+                                Delivered
+                              </Button>
+                            )}
+                            <div
+                              className={`
                         ${
                           item.order_status === "Pending"
                             ? "bg-black"
@@ -160,8 +166,9 @@ export default function OrderLIstForAdmin({
                                   : "bg-amber-500"
                         } text-white p-1 px-2 rounded-full text-[12px]
                         `}
-                          >
-                            {item.order_status}
+                            >
+                              {item.order_status}
+                            </div>
                           </div>
                         </div>
                       </div>
