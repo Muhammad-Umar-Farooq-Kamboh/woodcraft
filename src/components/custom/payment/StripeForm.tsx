@@ -35,7 +35,7 @@ export default function StripeForm({
       });
       if (res.status === 200) {
         toast.success(res.data.message || "Payment accepted successfully");
-        setListOfOrders((prev) =>
+        setListOfOrders((prev: any) =>
           prev.map((o: any) => (o.id === res.data.data.id ? res.data.data : o)),
         );
         return true;
