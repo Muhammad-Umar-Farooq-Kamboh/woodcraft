@@ -99,17 +99,23 @@ export default function CustomerOrderList({ data, setListOfOrders }: any) {
                   >
                     <DialogTrigger className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div className="flex-1">
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
+                        <div className="flex items-start mb-2">
+                          <div className="text-left w-full">
                             <h3 className="font-semibold text-lg">
                               {order?.orderItem?.product_type}
                             </h3>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 max-w-150">
                               {order?.orderItem?.product_discription}
                             </p>
                           </div>
-                          <div
-                            className={`
+                          <div className="flex gap-4">
+                            <div
+                              className={`px-2 border ${order.payment_status ? "bg-[#E2F1E7] text-[#00c950]  border-[#00C950] rounded-2xl" : "bg-[#FBF1DF] text-[#F29E2F] border-[#F29E2F] rounded-2xl"} `}
+                            >
+                              {order.payment_status ? "Paid" : "Unpaid"}
+                            </div>
+                            <div
+                              className={`
                         ${
                           order.order_status === "Pending"
                             ? "bg-black"
@@ -122,8 +128,9 @@ export default function CustomerOrderList({ data, setListOfOrders }: any) {
                                   : "bg-amber-500"
                         } text-white p-1 px-2 rounded-full text-[12px]
                         `}
-                          >
-                            {order.order_status}
+                            >
+                              {order.order_status}
+                            </div>
                           </div>
                         </div>
                         <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
