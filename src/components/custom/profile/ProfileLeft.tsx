@@ -9,7 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, LogOut } from "lucide-react";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -36,6 +38,15 @@ const formSchema = z.object({
 
 export default function ProfileLeft({ user, setUser }: any) {
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+  const logout = async () => {
+    setIsLoading(true);
+    await signOut({ redirect: false });
+    toast.success("User signout");
+    router.replace("/signin");
+    setIsLoading(false);
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema as any),
@@ -180,15 +191,25 @@ export default function ProfileLeft({ user, setUser }: any) {
           />
         </FieldGroup>
       </form>
-      <Button
-        className="w-fit bg-[#3D2514] hover:bg-[#4d2d16]"
-        type="submit"
-        form="form-rhf-demo"
-        disabled={isLoading}
-      >
-        Update profile
-        {isLoading && <LoaderCircle className="animate-spin" />}
-      </Button>
+      <div className="flex gap-4">
+        <Button
+          className="w-fit bg-[#3D2514] hover:bg-[#4d2d16]"
+          type="submit"
+          form="form-rhf-demo"
+          disabled={isLoading}
+        >
+          Update profile
+          {isLoading && <LoaderCircle className="animate-spin" />}
+        </Button>
+        <Button
+          onClick={() => logout()}
+          disabled={isLoading}
+          className="w-fit bg-[#E89230] text-[#3D2514] hover:bg-[#d68a32]"
+        >
+          <LogOut />
+          Logout
+        </Button>
+      </div>
     </div>
   );
 }

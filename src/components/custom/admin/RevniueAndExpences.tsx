@@ -11,7 +11,7 @@ export default function RevniueAndExpences({ listOfOrders }: any) {
   const totalExpensie = toatalMaterialCost + totalLabourCost;
   const profit = totalRevinue - totalExpensie;
   return (
-    <div className="md:col-span-3">
+    <div className="col-span-3">
       <div className="bg-card rounded-xl shadow-card border border-border p-5">
         <h2 className="font-display font-semibold text-foreground mb-4">
           Revenue vs Expenses

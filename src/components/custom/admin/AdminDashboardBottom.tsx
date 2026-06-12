@@ -7,7 +7,7 @@ export default function AdminDashboardBottom({
 }: any) {
   return (
     <div className="grid grid-cols-3 gap-8">
-      <div className="md:col-span-2 bg-card rounded-xl shadow-card border border-border overflow-hidden">
+      <div className="col-span-3 md:col-span-2 bg-card rounded-xl shadow-card border border-border overflow-hidden">
         <div className="px-5 py-4 border-b border-border">
           <h2 className="font-display font-semibold text-foreground">
             Recent Orders
@@ -67,7 +67,7 @@ export default function AdminDashboardBottom({
         )}
       </div>
 
-      <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
+      <div className="col-span-3 md:col-span-1 bg-card rounded-xl shadow-card border border-border overflow-hidden">
         <div className="px-5 py-4 border-b border-border flex items-center gap-2">
           <AlertTriangle size={16} className="text-status-pending" />
           <h2 className="font-display font-semibold text-foreground">
