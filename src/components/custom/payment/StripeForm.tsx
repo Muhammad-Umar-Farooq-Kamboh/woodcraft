@@ -88,8 +88,8 @@ export default function StripeForm({
       setErrorMessage(error.message);
       toast.error(error.message || "Payment not collected");
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
-      console.log("Status:", paymentIntent.status);
-      console.log("Amount Paid:", paymentIntent.amount / 100);
+      // console.log("Status:", paymentIntent.status);
+      // console.log("Amount Paid:", paymentIntent.amount / 100);
       const updated = await updatePaymentStatus(orderId);
       if (updated) {
         setOpenDialog(false);

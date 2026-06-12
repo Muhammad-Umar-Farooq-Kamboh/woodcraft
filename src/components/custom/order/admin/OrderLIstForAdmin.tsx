@@ -36,7 +36,7 @@ export default function OrderLIstForAdmin({
   const changeOrderStatusToDelivered = async (orderId: string) => {
     setIsLoading(true);
     try {
-      console.log("Dilivered");
+      // console.log("Dilivered");
       const res = await axios.post("/api/order/change-order-status", {
         orderStatus: "Delivered",
         orderId,

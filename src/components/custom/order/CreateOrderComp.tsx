@@ -113,7 +113,7 @@ export default function CreateOrderComp({ listOfWoodCategorie }: any) {
         "/api/order/customer-create-order",
         requestdata,
       );
-      console.log(res.data.data);
+      // console.log(res.data.data);
       toast.success(res.data.message || "Order created Successfully");
     } catch (error: any) {
       // console.log(error?.response?.data.message || "Error occur in server");

@@ -63,7 +63,7 @@ export default function Page() {
       email: data.email,
       password: data.password,
     });
-    console.log(result);
+    // console.log(result);
 
     if (result?.error) {
       toast.error(result.error);

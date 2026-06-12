@@ -71,7 +71,7 @@ export default function EditInventory({ data, setdata }: any) {
   });
   async function onSubmit(dataOfForm: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    console.log(dataOfForm);
+    // console.log(dataOfForm);
     const updatedData = { id: data.id, ...dataOfForm };
     try {
       const res = await axios.post(

@@ -13,7 +13,7 @@ export default function ListOfEmployeeTask({
   listOfOrders,
   setListOfOrders,
 }: any) {
-  console.log(listOfOrders);
+  // console.log(listOfOrders);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
