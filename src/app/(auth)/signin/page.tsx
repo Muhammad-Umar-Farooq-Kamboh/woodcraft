@@ -36,7 +36,7 @@ const formSchema = z.object({
   email: z
     .email()
     .min(5, "Email must be at least 5 characters.")
-    .max(20, "Email must be at most 20 characters."),
+    .max(30, "Email must be at most 20 characters."),
   password: z
     .string()
     .min(6, "Password must be at least 6 characters.")
