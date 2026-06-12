@@ -19,7 +19,7 @@ export default function Mobileheader({ role }: { role?: string }) {
   return (
     <div className="block lg:hidden">
       <Drawer direction="left" open={openDrawer} onOpenChange={setOpenDrawer}>
-        <DrawerTrigger>
+        <DrawerTrigger className="absolute top-2 left-2">
           <Menu />
         </DrawerTrigger>
         <DrawerContent className="bg-[#3D2514] border-none max-w-80">
