@@ -89,18 +89,24 @@ export default function EmployeeTop({
   });
 
   const totalHoursOfWorking = listOfEmployee.reduce((sum: number, ass: any) => {
-    const hoursOfEveryEmp = ass.assigment.reduce((sum: number, ass: any) => {
-      return sum + ass.hours;
-    }, 0);
+    let hoursOfEveryEmp = 0;
+    if (ass.assigment) {
+      hoursOfEveryEmp = ass?.assigment.reduce((sum: number, ass: any) => {
+        return sum + ass.hours;
+      }, 0);
+    }
     return sum + hoursOfEveryEmp;
   }, 0);
 
   const totalEarning = listOfEmployee.reduce((sum: number, emp: any) => {
-    const totalEarningOfEmp =
-      emp.profile.rate_per_hour *
-      emp.assigment.reduce((sum: number, ass: any) => {
-        return sum + ass.hours;
-      }, 0);
+    let totalEarningOfEmp = 0;
+    if (emp.assigment) {
+      totalEarningOfEmp =
+        emp.profile.rate_per_hour *
+        emp?.assigment.reduce((sum: number, ass: any) => {
+          return sum + ass.hours;
+        }, 0);
+    }
     return sum + totalEarningOfEmp;
   }, 0);
 
@@ -109,7 +115,7 @@ export default function EmployeeTop({
     try {
       const res = await axios.post("/api/employee/create-new-employee", data);
       if (res.status === 200) {
-        console.log(res.data.data);
+        // console.log(res.data.data);
 
         setListOfEmployee((prev: any) => [...prev, res.data.data]);
         toast.success(res.data.message || "Employee created successfully");

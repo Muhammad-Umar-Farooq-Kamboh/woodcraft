@@ -35,18 +35,26 @@ export default function EmployeeList({
                   <TableCell>{e.role}</TableCell>
                   <TableCell>{e?.profile?.rate_per_hour || 1000}/-</TableCell>
                   <TableCell>
-                    {e.assigment.reduce((sum: number, elem: any) => {
-                      return sum + elem.hours;
-                    }, 0)}
+                    {e.assigment
+                      ? `${e.assigment.reduce((sum: number, elem: any) => {
+                          return sum + elem.hours;
+                        }, 0)}`
+                      : 0}
                   </TableCell>
                   <TableCell>
-                    {e?.profile?.rate_per_hour *
-                      e.assigment.reduce((sum: number, elem: any) => {
-                        return sum + elem.hours;
-                      }, 0)}
+                    {e.assigment
+                      ? `${
+                          e?.profile?.rate_per_hour *
+                          e.assigment.reduce((sum: number, elem: any) => {
+                            return sum + elem.hours;
+                          }, 0)
+                        }`
+                      : 0}
                     /-
                   </TableCell>
-                  <TableCell>{e?.assigment.length}</TableCell>
+                  <TableCell>
+                    {e.assigment ? `${e?.assigment.length}` : 0}
+                  </TableCell>
                   <TableCell>
                     <EditEmployee
                       data={e}
